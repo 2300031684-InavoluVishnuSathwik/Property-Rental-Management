@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Home Images</title>
+  <style>
+    body {
+      background-color: #FFA500; 
+      font-family: Arial, sans-serif;
+    }
+
+    .house {
+      margin: 20px;
+      padding: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      text-align: center;
+      display: inline-block; /* Change to inline-block */
+      margin-right: 10px; /* Add space between images */
+    }
+
+    img {
+      width: 300px;
+      height: 200px;
+    }
+
+    .details-button {
+      margin-top: 10px;
+      background-color: #3498db;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .details-button:hover {
+      background-color: #2980b9;
+    }
+
+    .no-house {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 24px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Home Images</h2>
+  <div id="house-list"></div>
+  <div id="no-house" class="no-house"></div>
+
+  <script>
+    const houseListDiv = document.getElementById('house-list');
+    const noHouseDiv = document.getElementById('no-house');
+
+    // Fetch stored images from localStorage
+    const savedImages = JSON.parse(localStorage.getItem('homeImages'));
+
+    // Check if there are saved images and display them
+    if (savedImages && savedImages.length > 0) {
+      savedImages.forEach(image => {
+        houseListDiv.innerHTML += `
+          <div class="house">
+            <img src="${image}" alt="House Image">
+          </div>
+        `;
+      });
+
+      // Add the "Like the house? Want to know the details?" message and button only once
+      houseListDiv.innerHTML += `
+        <p>Like the house? Want to know the details?</p>
+        <a href="house_full_details.html" class="details-button">View Details</a>
+      `;
+    } else {
+      noHouseDiv.innerHTML = "No images are available.";
+    }
+  </script>
+</body>
+</html>

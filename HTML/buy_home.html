@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search Address - Buy Home</title>
+  <style>
+    body {
+      background-image: url('back3.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    h2 {
+      color: orange; /* Change the color of the heading */
+    }
+
+    label {
+      color: white; /* Change the color of labels */
+      background-color: black;
+    }
+
+    select, input[type="radio"], input[type="number"] {
+      margin: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    button {
+      margin: 10px;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .results {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body>
+  <h2>Search in the address</h2>
+
+  <label for="country">Country:</label>
+  <select id="country" onchange="populateStates()">
+    <option value="">Select Country</option>
+    <option value="India">India</option>
+    <option value="USA">USA</option>
+    <option value="Canada">Canada</option>
+    <option value="Australia">Australia</option>
+    <option value="Germany">Germany</option>
+    <option value="France">France</option>
+    <option value="Japan">Japan</option>
+    <option value="Brazil">Brazil</option>
+  </select>
+
+  <label for="state">State:</label>
+  <select id="state" onchange="populateDistricts()">
+    <option value="">Select State</option>
+    <option value="Andhra Pradesh">Andhra Pradesh</option>
+    <option value="Telangana">Telangana</option>
+    <option value="California">California</option>
+    <option value="New York">New York</option>
+    <option value="Ontario">Ontario</option>
+    <option value="British Columbia">British Columbia</option>
+    <option value="Queensland">Queensland</option>
+    <option value="New South Wales">New South Wales</option>
+    <option value="England">England</option>
+    <option value="Bavaria">Bavaria</option>
+    <option value="Île-de-France">Île-de-France</option>
+    <option value="Tokyo">Tokyo</option>
+    <option value="São Paulo">São Paulo</option>
+  </select>
+
+  <label for="district">District:</label>
+  <select id="district" onchange="populateCities()">
+    <option value="">Select District</option>
+    <option value="Guntur">Guntur</option>
+    <option value="Krishna">Krishna</option>
+    <option value="Los Angeles">Los Angeles</option>
+    <option value="San Francisco">San Francisco</option>
+    <option value="York">York</option>
+    <option value="Buffalo">Buffalo</option>
+    <option value="Toronto">Toronto</option>
+    <option value="Vancouver">Vancouver</option>
+    <option value="Brisbane">Brisbane</option>
+    <option value="Sydney">Sydney</option>
+    <option value="Munich">Munich</option>
+    <option value="Berlin">Berlin</option>
+    <option value="Paris">Paris</option>
+    <option value="Osaka">Osaka</option>
+    <option value="Rio de Janeiro">Rio de Janeiro</option>
+  </select>
+
+  <label for="city">City:</label>
+  <select id="city" onchange="populateAreas()">
+    <option value="">Select City</option>
+  </select>
+
+  <label for="area">Area:</label>
+  <select id="area">
+    <option value="">Select Area</option>
+  </select>
+
+  <label for="priceFrom">Price Range (in Rupees):</label>
+  <input type="number" id="priceFrom" placeholder="From" min="0">
+  <input type="number" id="priceTo" placeholder="To" min="0">
+
+  <button id="searchButton" onclick="searchDetails()">Search</button>
+
+  <div class="results" id="results"></div>
+
+  <script>
+    const data = {
+      India: {
+        "Andhra Pradesh": {
+          "Guntur": {
+            "Guntur": ["Lakshmipuram", "Vidhya Nagar"],
+            "Tenali": ["Park", "Some Nagar"]
+          },
+          "Krishna": {
+            "Vijayawada": ["Benz Circle", "Kanur"],
+            "Machilipatnam": ["Bus Stand", "Railway Station"]
+          }
+        },
+        "Telangana": {
+          "Hyderabad": {
+            "Hyderabad": ["KPHB", "Banjara Hills"],
+            "Warangal": ["Temple", "Church"]
+          },
+          "Warangal": {
+            "Warangal": ["Warangal Fort", "Thyagaraja"]
+          }
+        }
+      },
+      USA: {
+        "California": {
+          "Los Angeles": {
+            "Los Angeles": ["Downtown", "Hollywood"],
+            "San Francisco": ["Golden Gate", "Chinatown"]
+          }
+        },
+        "New York": {
+          "New York City": {
+            "New York": ["Manhattan", "Brooklyn"],
+            "Buffalo": ["Downtown", "Niagara"]
+          }
+        }
+      },
+      Canada: {
+        "Ontario": {
+          "Toronto": {
+            "Toronto": ["Downtown", "Scarborough"],
+            "Ottawa": ["ByWard Market", "Kanata"]
+          }
+        },
+        "British Columbia": {
+          "Vancouver": {
+            "Vancouver": ["Downtown", "Richmond"],
+            "Victoria": ["James Bay", "Langford"]
+          }
+        }
+      },
+      Australia: {
+        "Queensland": {
+          "Brisbane": {
+            "Brisbane": ["CBD", "Fortitude Valley"],
+            "Gold Coast": ["Surfers Paradise", "Broadbeach"]
+          }
+        },
+        "New South Wales": {
+          "Sydney": {
+            "Sydney": ["CBD", "Bondi Beach"],
+            "Newcastle": ["City Centre", "Darby Street"]
+          }
+        }
+      },
+      Germany: {
+        "Bavaria": {
+          "Munich": {
+            "Munich": ["Marienplatz", "Nymphenburg"],
+            "Nuremberg": ["Old Town", "Erlangen"]
+          }
+        },
+        "Berlin": {
+          "Berlin": ["Mitte", "Kreuzberg"]
+        }
+      },
+      France: {
+        "Île-de-France": {
+          "Paris": {
+            "Paris": ["Montmartre", "Le Marais"],
+            "Versailles": ["Château", "Le Chesnay"]
+          }
+        }
+      },
+      Japan: {
+        "Tokyo": {
+          "Tokyo": {
+            "Tokyo": ["Shibuya", "Shinjuku"]
+          },
+          "Osaka": {
+            "Osaka": ["Dotonbori", "Umeda"]
+          }
+        }
+      },
+      Brazil: {
+        "São Paulo": {
+          "São Paulo": {
+            "São Paulo": ["Avenida Paulista", "Liberdade"]
+          },
+          "Rio de Janeiro": {
+            "Rio de Janeiro": ["Copacabana", "Ipanema"]
+          }
+        }
+      }
+    };
+
+    function populateStates() {
+      const country = document.getElementById('country').value;
+      const stateSelect = document.getElementById('state');
+      stateSelect.innerHTML = '<option value="">Select State</option>';
+
+      if (country && data[country]) {
+        for (const state in data[country]) {
+          stateSelect.innerHTML += `<option value="${state}">${state}</option>`;
+        }
+      }
+    }
+
+    function populateDistricts() {
+      const country = document.getElementById('country').value;
+      const state = document.getElementById('state').value;
+      const districtSelect = document.getElementById('district');
+      districtSelect.innerHTML = '<option value="">Select District</option>';
+
+      if (state && data[country][state]) {
+        for (const district in data[country][state]) {
+          districtSelect.innerHTML += `<option value="${district}">${district}</option>`;
+        }
+      }
+    }
+
+    function populateCities() {
+      const country = document.getElementById('country').value;
+      const state = document.getElementById('state').value;
+      const district = document.getElementById('district').value;
+      const citySelect = document.getElementById('city');
+      citySelect.innerHTML = '<option value="">Select City</option>';
+
+      if (district && data[country][state][district]) {
+        const cities = data[country][state][district];
+        for (const city in cities) {
+          citySelect.innerHTML += `<option value="${city}">${city}</option>`;
+        }
+      }
+    }
+
+    function populateAreas() {
+      const country = document.getElementById('country').value;
+      const state = document.getElementById('state').value;
+      const district = document.getElementById('district').value;
+      const city = document.getElementById('city').value;
+      const areaSelect = document.getElementById('area');
+      areaSelect.innerHTML = '<option value="">Select Area</option>';
+
+      if (city && data[country][state][district][city]) {
+        const areas = data[country][state][district][city];
+        areas.forEach(area => {
+          areaSelect.innerHTML += `<option value="${area}">${area}</option>`;
+        });
+      }
+    }
+
+    function searchDetails() {
+    const country = document.getElementById('country').value;
+    const state = document.getElementById('state').value;
+    const district = document.getElementById('district').value;
+    const city = document.getElementById('city').value;
+    const area = document.getElementById('area').value;
+    const priceFrom = document.getElementById('priceFrom').value;
+    const priceTo = document.getElementById('priceTo').value;
+
+    const resultsDiv = document.getElementById('results');
+
+    // Check if all fields are filled
+    if (!country || !state || !district || !city || !area || !priceFrom || !priceTo) {
+      resultsDiv.innerHTML = "Please fill in all fields before proceeding.";
+      return; // Stop the function if validation fails
+    }
+
+    // Check if priceFrom and priceTo are valid numbers
+    if (parseInt(priceFrom) > parseInt(priceTo)) {
+      resultsDiv.innerHTML = "Please ensure 'Price From' is less than 'Price To'.";
+      return; // Stop the function if validation fails
+    }
+
+    resultsDiv.innerHTML = `Searching for properties in ${area}, ${city}, ${district}, ${state}, ${country} with price range: ₹${priceFrom} to ₹${priceTo}.`;
+
+    // Redirect to payment.html
+    window.location.href = "house_search_results.html";
+    }
+  </script>
+</body>
+</html>

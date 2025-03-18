@@ -1,0 +1,155 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>User Profile</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #ffa500;
+            }
+            .profile-container {
+                width: 80%;
+                margin: 0 auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .profile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: 1px solid #ddd;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            .profile-header h1 {
+                margin: 0;
+            }
+            .profile-actions {
+                display: flex;
+                gap: 15px;
+            }
+            .profile-actions a {
+                text-decoration: none;
+                color: #fff;
+                background-color: #007BFF;
+                padding: 10px 15px;
+                border-radius: 5px;
+                transition: background-color 0.3s;
+            }
+            .profile-actions a:hover {
+                background-color: #0056b3;
+            }
+            .profile-info {
+                margin-bottom: 20px;
+            }
+            .profile-info h2 {
+                margin-bottom: 10px;
+            }
+            .profile-info p {
+                margin: 5px 0;
+            }
+            .property-section {
+                margin-top: 20px;
+            }
+            .property-section h2 {
+                margin-bottom: 15px;
+            }
+            .property-list {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+            .property-item {
+                width: 30%;
+                padding: 15px;
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+            }
+            .property-item h3 {
+                margin-top: 0;
+            }
+        </style>
+    </head>
+    <body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <h1>User Profile</h1>
+            <div class="profile-actions">
+                <a href="give_rent.html">Give Rent</a>
+                <a href="sell_home.html">Sell Home</a>
+                <a href="buy_home.html">Buy Home</a>
+                <a href="take_rent.html">Take Rent</a>
+            </div>
+        </div>
+
+        <div class="profile-info">
+            <h2>User Information</h2>
+            <p><strong>Name:</strong> <span id="profile-username">Unknown User</span></p>
+            <p><strong>Email:</strong> <span id="profile-email">Not Available</span></p>
+            <p><strong>Phone:</strong> <span id="profile-phone">Not Available</span></p>
+        </div>
+
+        <!-- Your Properties Section -->
+        <div class="property-section">
+            <h2>Your Properties</h2>
+            <div class="property-list">
+                <!-- Property 1 -->
+                <div class="property-item">
+                    <h3>3 BHK Apartment for Rent</h3>
+                    <p><strong>Location:</strong> Guntur</p>
+                    <p><strong>Rent:</strong> 15,000 Rs/month</p>
+                </div>
+                <!-- Property 2 -->
+                <div class="property-item">
+                    <h3>2 BHK Apartment for Sale</h3>
+                    <p><strong>Location:</strong> Vijayawada</p>
+                    <p><strong>Price:</strong> 50,00,000 Rs</p>
+                </div>
+                <!-- Property 3 -->
+                <div class="property-item">
+                    <h3>2 BHK House for Rent</h3>
+                    <p><strong>Location:</strong>Tenali</p>
+                    <p><strong>Rent:</strong> 10,000 Rs/month</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bought Properties Section -->
+        <div class="property-section">
+            <h2>Bought Properties</h2>
+            <div class="property-list">
+                <!-- Property 1 -->
+                <div class="property-item">
+                    <h3>3 BHK Apartment</h3>
+                    <p><strong>Location:</strong>Hyderabad</p>
+                    <p><strong>Price:</strong> 75,00,000 Rs</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+    // Retrieve and display user details from localStorage
+    var username = localStorage.getItem('loggedInUser');
+    var userDetails = JSON.parse(localStorage.getItem(username));
+
+    document.getElementById('profile-username').textContent = username ? username : "Unknown User";
+    document.getElementById('profile-email').textContent = userDetails && userDetails.email ? userDetails.email : "Not Available";
+    document.getElementById('profile-phone').textContent = userDetails && userDetails.phone ? userDetails.phone : "Not Available";
+    </script>
+
+
+
+
+    </body>
+    </html>

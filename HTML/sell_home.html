@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sell Your Property</title>
+  <style>
+    body {
+      background-image: url('back4.jpeg');
+      background-size: cover;
+      background-position: fit;
+      font-family: Arial, sans-serif;
+    }
+
+    .add-home {
+      font-size: 20px;
+      margin-top: 20px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 5px 10px;
+      background-color: #f39c12;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e67e22;
+    }
+
+    input[type="file"], input[type="text"], input[type="tel"], select, textarea {
+      display: block;
+      margin-top: 10px;
+      padding: 10px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    .orange-label {
+      color: orange;
+    }
+
+    /* Hidden initially */
+    #house-fields, #flat-fields, #land-fields, #image-section {
+      display: none;
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Property Type Dropdown -->
+  <label for="property-type">Type of Property:</label>
+  <select id="property-type" onchange="showPropertyFields()">
+    <option value="">Select Property Type</option>
+    <option value="house">House</option>
+    <option value="flat">Flat</option>
+    <option value="land">Land</option>
+  </select>
+
+  <!-- Image Upload Section (Visible for All Property Types) -->
+  <div id="image-section">
+    <label for="home-image1" style="background-color: orange;">Upload Image 1:</label>
+    <input type="file" id="home-image1" name="home-images" accept="image/*">
+
+    <label for="home-image2" style="background-color: orange;">Upload Image 2:</label>
+    <input type="file" id="home-image2" name="home-images" accept="image/*">
+
+    <label for="home-image3" style="background-color: orange;">Upload Image 3:</label>
+    <input type="file" id="home-image3" name="home-images" accept="image/*">
+  </div>
+
+  <!-- House and Flat Fields (Common Fields for House and Flat) -->
+  <div id="house-fields">
+    <label for="bedrooms" style="background-color: orange;">No. of Bedrooms:</label>
+    <select id="bedrooms">
+      <option value="">Select Bedrooms</option>
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+
+    <label for="area" style="background-color: orange;">Area of the House (sq. ft.):</label>
+    <input type="text" id="area" placeholder="Enter area in sq. ft.">
+
+    <label style="background-color: orange;">Hall:</label>
+    <select id="hall">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label style="background-color: orange;">Kitchen:</label>
+    <select id="kitchen">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label style="background-color: orange;">Dining Hall:</label>
+    <select id="dining">
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+
+    <label style="background-color: orange;">Address of the House:</label>
+    <textarea id="house-address" placeholder="Enter address" rows="4"></textarea>
+
+    <label for="contact" style="background-color: orange;">Contact Details:</label>
+    <input type="tel" id="contact" placeholder="Enter contact number">
+
+    <label for="expected-price" style="background-color: orange;">Expected Price (in rupees):</label>
+    <input type="text" id="expected-price" placeholder="Enter expected price">
+  </div>
+
+  <!-- Land Fields -->
+  <div id="land-fields">
+    <label for="land-area">Area (sq. ft.):</label>
+    <input type="text" id="land-area" placeholder="Enter area in sq. ft.">
+
+    <label for="land-type" style="background-color: orange;">Type of Land:</label>
+    <select id="land-type">
+      <option value="farming">Farming Land</option>
+      <option value="commercial">Commercial Land</option>
+    </select>
+
+    <label for="land-address" style="background-color: orange;">Address:</label>
+    <textarea id="land-address" placeholder="Enter address" rows="4"></textarea>
+
+    <label for="land-contact" style="background-color: orange;">Contact Details:</label>
+    <input type="tel" id="land-contact" placeholder="Enter contact number">
+
+    <label for="land-price" style="background-color: orange;">Expected Price (in rupees):</label>
+    <input type="text" id="land-price" placeholder="Enter expected price">
+  </div>
+
+  <script>
+    function showPropertyFields() {
+      var propertyType = document.getElementById("property-type").value;
+
+      // Hide all fields initially
+      document.getElementById("house-fields").style.display = "none";
+      document.getElementById("land-fields").style.display = "none";
+      document.getElementById("image-section").style.display = "none";
+
+      // Show specific fields based on selection
+      if (propertyType === "house" || propertyType === "flat") {
+        document.getElementById("house-fields").style.display = "block";
+        document.getElementById("image-section").style.display = "block";
+      } else if (propertyType === "land") {
+        document.getElementById("land-fields").style.display = "block";
+        document.getElementById("image-section").style.display = "block";
+      }
+    }
+  </script>
+  <script>
+    // Submit Button
+    function validateForm() {
+      var propertyType = document.getElementById('property-type').value;
+      var isValid = true;
+
+      // Common fields
+      var address = document.getElementById('house-address').value || document.getElementById('land-address').value;
+      var contact = document.getElementById('contact').value || document.getElementById('land-contact').value;
+      var price = document.getElementById('expected-price').value || document.getElementById('land-price').value;
+
+      // Validate common fields
+      if (address === "" || contact === "" || price === "") {
+          isValid = false;
+      }
+
+      // Validate specific fields based on property type
+      if (propertyType === "house" || propertyType === "flat") {
+          var bedrooms = document.getElementById('bedrooms').value;
+          var area = document.getElementById('area').value;
+          var hall = document.getElementById('hall').value;
+          var kitchen = document.getElementById('kitchen').value;
+          var diningHall = document.getElementById('dining').value;
+
+          if (bedrooms === "" || area === "" || hall === "" || kitchen === "" || diningHall === "") {
+              isValid = false;
+          }
+      } else if (propertyType === "land") {
+          var landArea = document.getElementById('land-area').value;
+
+          if (landArea === "") {
+              isValid = false;
+          }
+      }
+
+      if (!isValid) {
+          alert("Please fill all fields before submitting.");
+          return false;
+      }
+
+      // Redirect to payment.html if form is valid
+      window.location.href = "payment.html";
+      return true;
+    }
+  </script>
+  <button type="submit" onclick="return validateForm();" style="font-size: 20px; padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px;">Submit</button>
+
+</body>
+</html>

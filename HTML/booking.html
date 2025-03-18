@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Booking Form</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow: hidden; /* Prevents scrolling */
+    }
+
+    /* Fullscreen video background */
+    .video-background {
+      position: fixed;
+      top: 125%;
+      left: 50%;
+      min-width: 100vw;
+      min-height: 100vh;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      z-index: -1; /* Send video to the back */
+      object-fit: cover; /* Ensures the video covers the entire area */
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+      width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      text-align: left;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      color: orange;
+    }
+
+    .form-container label {
+      font-weight: bold;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="tel"],
+    .form-container select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+    .form-container button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #book-now {
+      background-color: orange;
+      color: white;
+    }
+
+    #cancel-booking, #back-to-home {
+      display: none;
+    }
+
+    #cancel-booking {
+      background-color: red;
+      color: white;
+    }
+
+    #back-to-home {
+      background-color: green;
+      color: white;
+    }
+
+    .thank-you-message, .note {
+      text-align: center;
+      font-size: 14px;
+      margin-top: 10px;
+      color: #555;
+    }
+
+    .thank-you-message {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video Background -->
+  <video class="video-background" autoplay loop muted>
+    <source src="thankyouVideo.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <div class="form-container">
+    <h2>Booking Form</h2>
+    <form id="booking-form">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number:</label>
+      <input type="tel" id="phone" name="phone" maxlength="10" required pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number">
+
+      <label for="purpose">Purpose:</label>
+      <select id="purpose" name="purpose" required>
+        <option value="" disabled selected>Select purpose</option>
+        <option value="Buy">Buy</option>
+        <option value="Rent">Take Rent</option>
+      </select>
+
+      <button type="button" id="book-now" onclick="bookNow()">Book Now</button>
+      <button type="button" id="cancel-booking" onclick="cancelBooking()">Cancel Booking</button>
+      <button type="button" id="back-to-home" onclick="backToHome()">Back to Home</button>
+    </form>
+
+    <p class="thank-you-message" id="thank-you-message" style="display: none;">Thank you for booking!</p>
+    <p class="note">It is always recommended that you meet, call, or message the owner personally.</p>
+  </div>
+
+  <script>
+    function bookNow() {
+      // Validate all fields
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const purpose = document.getElementById('purpose').value;
+
+      if (name && email && phone && purpose) {
+        // Show thank you message and switch buttons
+        document.getElementById('thank-you-message').style.display = 'block';
+        document.getElementById('book-now').style.display = 'none';
+        document.getElementById('cancel-booking').style.display = 'block';
+        document.getElementById('back-to-home').style.display = 'block';
+        alert("Your booking has been confirmed!");
+      } else {
+        alert("Please fill in all fields before booking.");
+      }
+    }
+
+    function cancelBooking() {
+      // Reset the form and revert buttons
+      document.getElementById('booking-form').reset();
+      document.getElementById('thank-you-message').style.display = 'none';
+      document.getElementById('book-now').style.display = 'block';
+      document.getElementById('cancel-booking').style.display = 'none';
+      document.getElementById('back-to-home').style.display = 'none';
+      alert("Your booking has been cancelled.");
+    }
+
+    function backToHome() {
+      // Redirect to options.html
+      window.location.href = 'options.html';
+    }
+  </script>
+
+</body>
+</html>

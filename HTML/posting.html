@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You Message</title>
+    <style>
+        /* Style for full-screen video background */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 65%;
+            left: 50%;
+            width: 100vw; /* Fit width to screen */
+            height: auto; /* Maintain aspect ratio */
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        /* Style for the centered text message */
+        .message {
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .message h1 {
+            font-size: 36px;
+            margin: 0 0 10px;
+        }
+
+        .message p {
+            font-size: 20px;
+            margin: 5px 0;
+        }
+
+        /* Button styling */
+        .back-button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #4CAF50; /* Green color */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background-color: #45a049; /* Darker green on hover */
+        }
+    </style>
+</head>
+<body>
+    <!-- Background video -->
+    <video class="video-background" autoplay muted loop>
+        <source src="thankyouVideo.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Thank you message with Back to Home button -->
+    <div class="message">
+        <h1>Thank You for Using our Service</h1>
+        <p>Your property details are saved and will be posted.</p>
+        <p>We hope you will get a happy offer.</p>
+        <a href="options.html" class="back-button">Back to Home</a>
+    </div>
+</body>
+</html>

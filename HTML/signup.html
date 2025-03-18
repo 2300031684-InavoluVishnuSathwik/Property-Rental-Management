@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HomeEase - Sign Up</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: orange;
+      text-align: center;
+      margin: 0;
+      background: url('back1.jpeg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    h1 {
+      color: #000;
+      margin-top: 50px;
+      font-size: 36px;
+    }
+
+    .signup-button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: #f39c12;
+      color: white;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .signup-button:hover {
+      background-color: #e67e22;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .form-container {
+      margin: 20px auto;
+      width: 300px;
+    }
+
+    input[type="text"], input[type="password"], input[type="email"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sign Up</h1>
+  <form action="SignUpServlet" method="post" class="form-container">
+    <input type="text" id="signup-username" name="signup-username" placeholder="Choose a Username" maxlength="12" required>
+    <input type="email" id="signup-email" name="signup-email" placeholder="Enter your Email" maxlength="30" required>
+    <input type="text" id="signup-phone" name="signup-phone" placeholder="Enter your Phone Number" maxlength="10" required>
+    <input type="password" id="signup-password" name="signup-password" placeholder="Create a Password" maxlength="5" required>
+    <input type="password" id="signup-confirm-password" name="signup-confirm-password" placeholder="Confirm Password" maxlength="5" required>
+    <p class="error" id="signup-error"></p>
+    <button type="submit" class="signup-button">Sign Up</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>HomeEase - Buy, Sell, Rent Homes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('back1.jpeg') no-repeat center center fixed;
+      background-size: fit;
+      color: orange;
+      text-align: center;
+      margin: 0;
+    }
+
+    h1 {
+      color: #fff;
+      margin-top: 50px;
+      font-size: 48px;
+    }
+
+    p {
+      color: #f0f0f0;
+      font-size: 20px;
+      margin-bottom: 40px;
+    }
+
+    .login-button {
+      margin-top: 20px;
+      padding: 15px 30px;
+      background-color: #f39c12;
+      color: white;
+      font-size: 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    .login-button:hover {
+      background-color: #e67e22;
+      box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    .header-image {
+      width: 100px;
+      height: 100px;
+      margin-top: 30px;
+      border-radius: 50%;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .form-container {
+      margin: 20px auto;
+      width: 300px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      background-color: #f8f8f8;
+    }
+
+    a {
+      color: #f39c12;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #content {
+      display: none;
+    }
+
+    #video-container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+    }
+
+    video {
+      width: 80%;
+      height: auto;
+    }
+
+    .profile-icon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 40px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Video that plays first -->
+  <div id="video-container">
+    <video id="intro-video" autoplay muted>
+      <source src="Intro_video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- Content to be displayed after the video -->
+  <div id="content">
+    <h1 style="color:orange;">Welcome to HomeEase</h1>
+
+    <img src="HomeEaseIcon.jpg" alt="HomeEase Header Icon" class="header-image">
+    <p>Buy, Sell, Rent Homes with Ease</p>
+
+    <div class="form-container">
+      <!-- Username and Password Fields -->
+      <input type="text" id="username" name="username" placeholder="Username" maxlength="12">
+      <input type="password" id="password" name="password" placeholder="Password" maxlength="5">
+      <a href="forgot_password.html" style="color: black;">Forgot Your Password?</a>
+      <p class="error" id="login-error"></p>
+
+      <!-- Login Button with validation -->
+      <button class="login-button" onclick="validateLogin()">Log In</button>
+
+      <!-- Sign-up Link -->
+      <p><a href="signup.html">New user? Sign up</a></p>
+    </div>
+  </div>
+
+  <!-- Profile Icon -->
+  <div class="profile-icon" onclick="redirectToProfile()">👤</div>
+
+  <script>
+    function redirectToProfile() {
+      var username = localStorage.getItem('loggedInUser');
+      if (username !== "") {
+        localStorage.setItem('loggedInUser', username);
+        location.href = 'user_details.html';
+      }
+    }
+
+    // Hide video and show content after video ends
+    var video = document.getElementById("intro-video");
+    video.onended = function() {
+      document.getElementById("video-container").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    };
+
+    // Login Validation
+    function validateLogin() {
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      var errorElement = document.getElementById('login-error');
+
+      if (username === "" || password === "") {
+        errorElement.textContent = "Please fill in both username and password.";
+      } else {
+        var storedUserDetails = localStorage.getItem(username);
+
+        if (storedUserDetails === null) {
+          errorElement.textContent = "User does not exist. Please sign up first.";
+        } else {
+          var parsedUserDetails = JSON.parse(storedUserDetails);
+
+          if (parsedUserDetails.password === password) {
+            errorElement.textContent = "";
+            localStorage.setItem('loggedInUser', username);
+            location.href = 'options.html';
+          } else {
+            errorElement.textContent = "Incorrect password. Try again.";
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

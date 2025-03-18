@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>House Full Details</title>
+  <style>
+    body {
+      background-image: url('back6.jpg');
+      background-size: cover; /* To cover the entire page */
+      background-repeat: no-repeat; /* Prevents repeating the image */
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    img {
+      width: 300px;
+      height: auto;
+      margin: 10px;
+    }
+
+    /* New style for the text background */
+    .text-background {
+      background-color: white; /* White background for text */
+      padding: 0px; /* Add some padding */
+      display: inline-block; /* To fit the text content */
+      border-radius: 0px; /* Optional: rounded corners */
+    }
+
+    /* Centered button styling */
+    .button-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .center-button {
+      background-color: orange;
+      color: white;
+      padding: 20px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>House Full Details</h2>
+  <div id="house-details" class="text-background"></div>
+
+  <script>
+    // Fetch the saved home data and images from localStorage
+    const homeData = JSON.parse(localStorage.getItem('homeData'));
+    const savedImages = JSON.parse(localStorage.getItem('homeImages'));
+
+    // Display the details
+    const houseDetailsDiv = document.getElementById('house-details');
+
+    if (homeData && savedImages && savedImages.length > 0) {
+      houseDetailsDiv.innerHTML = `
+        <p>Address: ${homeData.address}</p>
+        <p>Contact: ${homeData.contact}</p>
+        <p>No: Of bedrooms: 3</p>
+        <p>Area: 2,000 Sq.ft</p>
+        <p>Hall: Yes</p>
+        <p>Kitchen: Yes</p>
+        <p>Dining Hall: Yes</p>
+        <p>Expected Price: 75,00,000</p>
+        <div>
+          ${savedImages.map(image => `<img src="${image}" alt="House Image">`).join('')}
+        </div>
+      `;
+    } else {
+      houseDetailsDiv.innerHTML = "<p>No details available for this house.</p>";
+    }
+  </script>
+
+  <div class="button-container">
+    <button onclick="window.location.href='payment.html'" class="center-button">Book This</button>
+  </div>
+</body>
+</html>
